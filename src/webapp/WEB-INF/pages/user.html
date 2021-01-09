@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" size="32x32" href="/img/favicon.png">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <title th:text="${pageTitle}"></title>
+
+    <script src="/js/jquery-3.5.1.min.js"></script>
+    <script src="/js/bootstrap.bundle.js"></script>
+  </head>
+
+  <body class="background filled">
+
+    <!-- header >>> -->
+    <nav class="navbar sticky-top site-header">
+      <div class="userinfo">
+        <div class="useremail float-left" th:text="${user.getEmail()} + '&nbsp;'"></div>
+        <div class="rolesinfo float-left" th:text="'with roles: ' + ${user.getRolesInString()}"></div>
+      </div>
+      <a class="nav-link float-right logout-link" href="/logout">Logout</a>
+    </nav>
+    <!-- header <<< -->
+
+    <div class="container-fluid">
+      <div class="row">
+    
+        <!-- page-navigation >>> -->
+        <nav class="page-nav d-md-block sidebar">
+          <div class="sidebar-sticky pt-3">
+            <ul class="nav flex-column list-unstyled">
+
+              <th:block th:if="${user.isAdmin()}">
+              <li class="pages nav-item rounded"><a class="nav-link" href="/admin">Admin</a></li>
+              </th:block>
+
+              <li class="pages nav-item rounded active"><a class="nav-link active" href="/user">User</a></li>
+            </ul>
+          </div>
+        </nav>
+        <!-- page-navigation <<< -->
+
+        <main role="main" class=""><!-- div class="page-content" -->
+
+          <h2>User information-page</h2>
+
+          <div class="card table-card">
+            <div class="table-responsive">
+        
+              <div class="card-header">About user</div>
+              <div class="card-body">
+
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Id</th>
+                      <th scope="col">First Name</th>
+                      <th scope="col">Last Name</th>
+                      <th scope="col">Age</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Role</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td th:text="${user.getId()}"></td>
+                      <td th:text="${user.getFirstName()}"></td>
+                      <td th:text="${user.getLastName()}"></td>
+                      <td th:text="${user.getAge()}"></td>
+                      <td th:text="${user.getEmail()}"></td>
+                      <td th:text="${user.getRolesInString()}"></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </main>
+
+      </div>
+    </div>
+
+  </body>
+</html>
